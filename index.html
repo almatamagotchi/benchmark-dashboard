@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>tinyizer benchmarks</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:system-ui,-apple-system,sans-serif;background:#0d1117;color:#c9d1d9;padding:2rem;max-width:900px;margin:0 auto}
+  h1{font-size:1.5rem;margin-bottom:.5rem;color:#58a6ff}
+  p.sub{color:#8b949e;font-size:.85rem;margin-bottom:2rem}
+  .chart-wrap{background:#161b22;border:1px solid #30363d;border-radius:6px;padding:1.5rem;margin-bottom:2rem}
+  .chart-wrap h2{font-size:1rem;color:#c9d1d9;margin-bottom:1rem}
+  canvas{max-height:350px}
+  table{width:100%;border-collapse:collapse;background:#161b22;border:1px solid #30363d;border-radius:6px;overflow:hidden}
+  th,td{padding:.5rem .75rem;text-align:right;font-size:.85rem}
+  th{background:#21262d;color:#8b949e;font-weight:600}
+  td{color:#c9d1d9;border-top:1px solid #30363d}
+  td:first-child,th:first-child{text-align:left}
+  .win{color:#3fb950;font-weight:700}
+  .lose{color:#f85149}
+  footer{text-align:center;color:#484f58;font-size:.75rem;margin-top:3rem}
+  footer a{color:#58a6ff;text-decoration:none}
+</style>
+</head>
+<body>
+
+<h1>📊 tinyizer benchmarks</h1>
+<p class="sub">output sizes in bytes — lower is better. auto-updated from CI.</p>
+
+<div class="chart-wrap">
+  <h2>per-page output size comparison</h2>
+  <canvas id="barChart"></canvas>
+</div>
+
+<div class="chart-wrap">
+  <h2>reduction percentage per tool</h2>
+  <canvas id="pctChart"></canvas>
+</div>
+
+<table>
+  <thead>
+    <tr><th>tool</th><th>test_page.html</th><th>test_page2.html</th><th>test_page3.html</th></tr>
+  </thead>
+  <tbody id="tableBody"></tbody>
+</table>
+
+<footer>
+  <p>built by <a href="https://github.com/almatamagotchi">alma tamagotchi</a> · data from <a href="https://github.com/almatamagotchi/tinyizer">tinyizer</a></p>
+</footer>
+
+<script>
+fetch('data.json')
+  .then(r => r.json())
+  .then(data => {
+    const tools = ['tinyizer','pipeline','html-minifier-terser','cminify'];
+    const pages = ['test_page.html','test_page2.html','test_page3.html'];
+    const colors = {'tinyizer':'#58a6ff','pipeline':'#f0883e','html-minifier-terser':'#da3633','cminify':'#8b949e'};
+    const labels = ['page1 (2KB)','page2 (0.5KB)','page3 (0.4KB)'];
+
+    // table
+    const tb = document.getElementById('tableBody');
+    tools.forEach(t => {
+      const row = tb.insertRow();
+      row.insertCell().textContent = t;
+      pages.forEach(p => {
+        const cell = row.insertCell();
+        cell.textContent = data.tools[t][p];
+        if (t === 'tinyizer') cell.classList.add('win');
+        else if (t === 'pipeline') cell.classList.add(data.tools.tinyizer[p] < data.tools.pipeline[p] ? 'win' : 'lose');
+      });
+    });
+
+    // bar chart
+    new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: tools.map(t => ({
+          label: t,
+          data: pages.map(p => data.tools[t][p]),
+          backgroundColor: colors[t],
+          borderColor: colors[t],
+          borderWidth: 0
+        }))
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {labels:{color:'#c9d1d9'}}
+        },
+        scales: {
+          x: {ticks:{color:'#8b949e'},grid:{color:'#21262d'}},
+          y: {title:{text:'bytes',display:true,color:'#8b949e'},ticks:{color:'#8b949e'},grid:{color:'#21262d'},beginAtZero:true}
+        }
+      }
+    });
+
+    // percentage chart
+    new Chart(document.getElementById('pctChart'), {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: tools.map(t => ({
+          label: t,
+          data: pages.map(p => {
+            const input = data.input_sizes[p];
+            const output = data.tools[t][p];
+            return parseFloat(((input - output) / input * 100).toFixed(1));
+          }),
+          backgroundColor: colors[t],
+          borderWidth: 0
+        }))
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {labels:{color:'#c9d1d9'}}
+        },
+        scales: {
+          x: {ticks:{color:'#8b949e'},grid:{color:'#21262d'}},
+          y: {title:{text:'% reduction',display:true,color:'#8b949e'},ticks:{color:'#8b949e',callback:v=>v+'%'},grid:{color:'#21262d'},beginAtZero:true,max:100}
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>

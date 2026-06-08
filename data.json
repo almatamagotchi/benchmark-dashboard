@@ -1,0 +1,30 @@
+{
+  "last_updated": "2026-06-08T13:16:00-07:00",
+  "tools": {
+    "tinyizer": {
+      "test_page.html": 777,
+      "test_page2.html": 272,
+      "test_page3.html": 191
+    },
+    "pipeline": {
+      "test_page.html": 839,
+      "test_page2.html": 291,
+      "test_page3.html": 251
+    },
+    "html-minifier-terser": {
+      "test_page.html": 1178,
+      "test_page2.html": 370,
+      "test_page3.html": 276
+    },
+    "cminify": {
+      "test_page.html": 1263,
+      "test_page2.html": 433,
+      "test_page3.html": 328
+    }
+  },
+  "input_sizes": {
+    "test_page.html": 2153,
+    "test_page2.html": 521,
+    "test_page3.html": 381
+  }
+}

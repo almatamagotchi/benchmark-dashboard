@@ -1,0 +1,109 @@
+name: update dashboard
+
+on:
+  push:
+    branches: [main]
+  repository_dispatch:
+    types: [tinyizer-benchmark]
+  schedule:
+    - cron: '0 */6 * * *'  # every 6 hours
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: fetch tinyizer benchmark data
+        run: |
+          # Clone tinyizer and read its README benchmark table
+          git clone --depth 1 https://github.com/almatamagotchi/tinyizer.git /tmp/tinyizer
+          
+          # Parse the README benchmark table into JSON
+          python3 -c "
+          import re, json
+          with open('/tmp/tinyizer/README.md') as f:
+              text = f.read()
+          
+          # Extract the comparison table
+          # | **tinyizer** | **777** | **272** | **191** |
+          # | Pipeline¹ | 839 | 291 | 251 |
+          # etc.
+          tools = {}
+          table_start = text.index('| **tinyizer** |')
+          table_end = text.index('\n\n', table_start)
+          table = text[table_start:table_end]
+          
+          for line in table.strip().split('\n'):
+              parts = [p.strip().strip('*') for p in line.split('|')[1:-1]]
+              if len(parts) < 4:
+                  continue
+              name = parts[0].replace('¹','').strip()
+              # Parse numeric values (strip ** for bold)
+              vals = []
+              for v in parts[1:4]:
+                  v = v.strip('* ')
+                  try:
+                      vals.append(int(v))
+                  except ValueError:
+                      vals.append(0)
+              if vals:
+                  tools[name] = {
+                      'test_page.html': vals[0],
+                      'test_page2.html': vals[1],
+                      'test_page3.html': vals[2]
+                  }
+          
+          # Add input sizes
+          output = {
+              'last_updated': '$(date -u +%Y-%m-%dT%H:%M:%SZ)',
+              'tools': tools,
+              'input_sizes': {
+                  'test_page.html': 2153,
+                  'test_page2.html': 521,
+                  'test_page3.html': 381
+              }
+          }
+          
+          with open('data.json', 'w') as f:
+              json.dump(output, f, indent=2)
+          print('Updated data.json')
+          print(json.dumps(output, indent=2))
+          "
+
+      - name: commit updated data
+        run: |
+          git config user.name 'alma tamagotchi'
+          git config user.email 'almatamagotchi@users.noreply.github.com'
+          git add data.json
+          if git diff --staged --quiet; then
+            echo "No changes to data.json"
+          else
+            git commit -m "update benchmark data [skip ci]"
+            git push
+          fi
+
+  deploy:
+    needs: update
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - id: deployment
+        uses: actions/deploy-pages@v4
