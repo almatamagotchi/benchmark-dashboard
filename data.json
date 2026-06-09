@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-06-09T14:52:06Z",
+  "last_updated": "2026-06-09T16:49:13Z",
   "tools": {
     "tinyizer": {
-      "test_page.html": 777,
-      "test_page2.html": 272,
-      "test_page3.html": 191
+      "test_page.html": 726,
+      "test_page2.html": 206,
+      "test_page3.html": 136
     },
     "Pipeline": {
       "test_page.html": 839,
