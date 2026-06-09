@@ -124,6 +124,73 @@ fetch('data.json')
         }
       }
     });
+
+    // history line chart (tinyizer + pipeline trends)
+    if (data.history && data.history.length > 1) {
+      const histWrap = document.createElement('div');
+      histWrap.className = 'chart-wrap';
+      histWrap.innerHTML = '<h2>size trends over time</h2><canvas id="histChart"></canvas>';
+      document.querySelector('footer').before(histWrap);
+
+      const histLabels = data.history.map(e => e.sha.slice(0,7));
+      const pageNames = ['test_page.html','test_page2.html','test_page3.html'];
+      const pageColors = ['#58a6ff','#f0883e','#3fb950'];
+      const pipeColors = ['#79c0ff','#d2a15a','#56d364'];
+
+      const datasets = [];
+      pageNames.forEach((p,i) => {
+        datasets.push({
+          label: 'tinyizer ' + ['page1','page2','page3'][i],
+          data: data.history.map(e => e.tinyizer[p]),
+          borderColor: pageColors[i],
+          backgroundColor: pageColors[i]+'22',
+          tension: 0.2,
+          pointRadius: 2,
+          borderWidth: 2
+        });
+      });
+      pageNames.forEach((p,i) => {
+        datasets.push({
+          label: 'pipeline ' + ['page1','page2','page3'][i],
+          data: data.history.map(e => e.pipeline ? e.pipeline[p] : null),
+          borderColor: pipeColors[i],
+          backgroundColor: 'transparent',
+          tension: 0.2,
+          pointRadius: 1,
+          borderWidth: 1,
+          borderDash: [4,4]
+        });
+      });
+
+      new Chart(document.getElementById('histChart'), {
+        type: 'line',
+        data: { labels: histLabels, datasets },
+        options: {
+          responsive: true,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { labels: { color: '#c9d1d9' } },
+            tooltip: {
+              callbacks: {
+                title: ctx => 'commit ' + data.history[ctx[0].dataIndex].sha.slice(0,7),
+                afterTitle: ctx => data.history[ctx[0].dataIndex].ts.replace('T',' ').replace('Z','')
+              }
+            }
+          },
+          scales: {
+            x: { ticks: { color: '#8b949e', maxRotation: 45, font: { size: 9 } }, grid: { color: '#21262d' } },
+            y: { title: { text: 'bytes', display: true, color: '#8b949e' }, ticks: { color: '#8b949e' }, grid: { color: '#21262d' }, beginAtZero: false }
+          }
+        }
+      });
+    }
+
+    // fix pipeline case mismatch (CI pushes "Pipeline", code expects "pipeline")
+    function pipelineKey(data) {
+      if (data.tools.pipeline) return data.tools.pipeline;
+      if (data.tools.Pipeline) return data.tools.Pipeline;
+      return {};
+    }
   });
 </script>
 </body>
