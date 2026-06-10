@@ -18,8 +18,12 @@
   th{background:#21262d;color:#8b949e;font-weight:600}
   td{color:#c9d1d9;border-top:1px solid #30363d}
   td:first-child,th:first-child{text-align:left}
-  .win{color:#3fb950;font-weight:700}
-  .lose{color:#f85149}
+   .win{color:#3fb950;font-weight:700}
+   .lose{color:#f85149}
+   .delta{font-size:.75rem;margin-left:3px}
+   .delta.down{color:#3fb950}
+   .delta.up{color:#f85149}
+   .delta.flat{color:#484f58}
   footer{text-align:center;color:#484f58;font-size:.75rem;margin-top:3rem}
   footer a{color:#58a6ff;text-decoration:none}
 </style>
@@ -41,7 +45,7 @@
 
 <table>
   <thead>
-    <tr><th>tool</th><th>test_page.html</th><th>test_page2.html</th><th>test_page3.html</th></tr>
+    <tr><th>tool</th><th>test_page.html</th><th>test_page2.html</th><th>test_page3.html</th><th>trend</th></tr>
   </thead>
   <tbody id="tableBody"></tbody>
 </table>
@@ -61,15 +65,66 @@ fetch('data.json')
 
     // table
     const tb = document.getElementById('tableBody');
+    const hist = data.history;
+    const prevEntry = hist && hist.length >= 2 ? hist[hist.length - 2] : null;
+    const curEntry = hist && hist.length >= 1 ? hist[hist.length - 1] : null;
+
     tools.forEach(t => {
       const row = tb.insertRow();
       row.insertCell().textContent = t;
+
+      let deltas = [];
       pages.forEach(p => {
         const cell = row.insertCell();
-        cell.textContent = data.tools[t][p];
+        const curVal = data.tools[t][p];
+        let txt = String(curVal);
+
+        // trend delta from previous history entry
+        if (prevEntry && curEntry && t === 'tinyizer') {
+          const prev = prevEntry.tinyizer[p];
+          const cur = curEntry.tinyizer[p];
+          const diff = cur - prev;
+          if (diff !== 0) {
+            const arrow = diff < 0 ? '↓' : '↑';
+            txt += ` <span class="delta ${diff<0?'down':'up'}">${arrow}${Math.abs(diff)}</span>`;
+            deltas.push(diff);
+          } else {
+            txt += ' <span class="delta flat">·0</span>';
+            deltas.push(0);
+          }
+        } else if (prevEntry && curEntry && t === 'pipeline') {
+          const prev = prevEntry.pipeline ? prevEntry.pipeline[p] : null;
+          const cur = curEntry.pipeline ? curEntry.pipeline[p] : null;
+          if (prev != null && cur != null) {
+            const diff = cur - prev;
+            if (diff !== 0) {
+              const arrow = diff < 0 ? '↓' : '↑';
+              txt += ` <span class="delta ${diff<0?'down':'up'}">${arrow}${Math.abs(diff)}</span>`;
+            } else {
+              txt += ' <span class="delta flat">·0</span>';
+            }
+          }
+        }
+
+        cell.innerHTML = txt;
         if (t === 'tinyizer') cell.classList.add('win');
         else if (t === 'pipeline') cell.classList.add(data.tools.tinyizer[p] < data.tools.pipeline[p] ? 'win' : 'lose');
       });
+
+      // trend column: mini sparkline or summary
+      const trendCell = row.insertCell();
+      if (deltas.length === 3) {
+        const total = deltas.reduce((a,b)=>a+b,0);
+        if (total < 0) {
+          trendCell.innerHTML = `<span class="delta down">↓${Math.abs(total)} total</span>`;
+        } else if (total > 0) {
+          trendCell.innerHTML = `<span class="delta up">↑+${total} total</span>`;
+        } else {
+          trendCell.innerHTML = '<span class="delta flat">·0</span>';
+        }
+      } else {
+        trendCell.innerHTML = '<span class="delta">—</span>';
+      }
     });
 
     // bar chart
