@@ -25,7 +25,9 @@
    .delta.up{color:#f85149}
    .delta.flat{color:#484f58}
    .sparkline svg{display:block}
-  footer{text-align:center;color:#484f58;font-size:.75rem;margin-top:3rem}
+   .alert{background:#2d1218;border:1px solid #f85149;border-radius:6px;padding:.75rem 1rem;margin-bottom:1.5rem;color:#f85149;font-size:.85rem}
+   .alert strong{color:#ff7b72}
+   footer{text-align:center;color:#484f58;font-size:.75rem;margin-top:3rem}
   footer a{color:#58a6ff;text-decoration:none}
 </style>
 </head>
@@ -61,12 +63,41 @@ fetch('data.json')
   .then(data => {
     const tools = ['tinyizer','pipeline','html-minifier-terser','cminify'];
     const pages = ['test_page.html','test_page2.html','test_page3.html'];
+    const pageLabels = ['page1','page2','page3'];
     const colors = {'tinyizer':'#58a6ff','pipeline':'#f0883e','html-minifier-terser':'#da3633','cminify':'#8b949e'};
     const labels = ['page1 (2KB)','page2 (0.5KB)','page3 (0.4KB)'];
 
+    // regression alerts
+    const hist = data.history;
+    if (hist && hist.length >= 2) {
+      const prev = hist[hist.length - 2];
+      const cur = hist[hist.length - 1];
+      const REGRESSION_THRESHOLD = 5;
+      let alerts = [];
+      Object.keys(cur).forEach(tool => {
+        if (tool === 'sha' || tool === 'ts') return;
+        if (!prev[tool]) return;
+        let totalDelta = 0;
+        let perPage = [];
+        pages.forEach((p,i) => {
+          const d = (cur[tool][p]||0) - (prev[tool][p]||0);
+          if (d > 0) perPage.push(`${pageLabels[i]} +${d}`);
+          totalDelta += d;
+        });
+        if (totalDelta > REGRESSION_THRESHOLD) {
+          alerts.push(`<strong>${tool}</strong> regressed +${totalDelta} byte${totalDelta>1?'s':''} (${perPage.join(', ')})`);
+        }
+      });
+      if (alerts.length > 0) {
+        const banner = document.createElement('div');
+        banner.className = 'alert';
+        banner.innerHTML = '⚠️ ' + alerts.join(' · ');
+        document.querySelector('h1').after(banner);
+      }
+    }
+
     // table
     const tb = document.getElementById('tableBody');
-    const hist = data.history;
     const prevEntry = hist && hist.length >= 2 ? hist[hist.length - 2] : null;
     const curEntry = hist && hist.length >= 1 ? hist[hist.length - 1] : null;
 
