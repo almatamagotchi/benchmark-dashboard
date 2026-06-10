@@ -24,6 +24,7 @@
    .delta.down{color:#3fb950}
    .delta.up{color:#f85149}
    .delta.flat{color:#484f58}
+   .sparkline svg{display:block}
   footer{text-align:center;color:#484f58;font-size:.75rem;margin-top:3rem}
   footer a{color:#58a6ff;text-decoration:none}
 </style>
@@ -45,7 +46,7 @@
 
 <table>
   <thead>
-    <tr><th>tool</th><th>test_page.html</th><th>test_page2.html</th><th>test_page3.html</th><th>trend</th></tr>
+     <tr><th>tool</th><th>test_page.html</th><th>test_page2.html</th><th>test_page3.html</th><th>history</th></tr>
   </thead>
   <tbody id="tableBody"></tbody>
 </table>
@@ -111,19 +112,36 @@ fetch('data.json')
         else if (t === 'pipeline') cell.classList.add(data.tools.tinyizer[p] < data.tools.pipeline[p] ? 'win' : 'lose');
       });
 
-      // trend column: mini sparkline or summary
-      const trendCell = row.insertCell();
-      if (deltas.length === 3) {
-        const total = deltas.reduce((a,b)=>a+b,0);
-        if (total < 0) {
-          trendCell.innerHTML = `<span class="delta down">↓${Math.abs(total)} total</span>`;
-        } else if (total > 0) {
-          trendCell.innerHTML = `<span class="delta up">↑+${total} total</span>`;
+      // history sparkline column
+      const histCell = row.insertCell();
+      if (hist && hist.length >= 2) {
+        const svgW = 60, svgH = 24;
+        const pad = 2;
+        const points = hist.map(e => {
+          const pdata = t === 'tinyizer' ? e.tinyizer : (t === 'pipeline' ? (e.pipeline || {}) : (e.tools?.[t] || {}));
+          if (!pdata) return null;
+          const total = (pdata['test_page.html']||0) + (pdata['test_page2.html']||0) + (pdata['test_page3.html']||0);
+          return isNaN(total) ? null : total;
+        }).filter(p => p !== null);
+        if (points.length >= 2) {
+          const min = Math.min(...points);
+          const max = Math.max(...points);
+          const range = max - min || 1;
+          const xScale = (svgW - 2*pad) / (points.length - 1);
+          let pathD = '';
+          points.forEach((v, i) => {
+            const x = pad + i * xScale;
+            const y = pad + (svgH - 2*pad) * (1 - (v - min) / range);
+            pathD += (i === 0 ? 'M' : 'L') + x + ',' + y + ' ';
+          });
+          const trendDown = points[points.length-1] < points[0];
+          const stroke = t === 'tinyizer' ? '#58a6ff' : (trendDown ? '#3fb950' : '#f85149');
+          histCell.innerHTML = `<span class="sparkline"><svg width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}"><polyline points="${points.map((v,i)=>{const x=pad+i*xScale;const y=pad+(svgH-2*pad)*(1-(v-min)/range);return x+','+y;}).join(' ')}" fill="none" stroke="${stroke}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${pad+0*xScale}" cy="${pad+(svgH-2*pad)*(1-(points[0]-min)/range)}" r="1.5" fill="${stroke}"/><circle cx="${pad+(points.length-1)*xScale}" cy="${pad+(svgH-2*pad)*(1-(points[points.length-1]-min)/range)}" r="1.5" fill="${stroke}"/></svg></span>`;
         } else {
-          trendCell.innerHTML = '<span class="delta flat">·0</span>';
+          histCell.innerHTML = '<span class="delta flat">—</span>';
         }
       } else {
-        trendCell.innerHTML = '<span class="delta">—</span>';
+        histCell.innerHTML = '<span class="delta flat">—</span>';
       }
     });
 
