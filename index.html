@@ -234,6 +234,26 @@ fetch('data.json')
           borderDash: [4,4]
         });
       });
+      // add total-sum lines (match sparkline data in table)
+      ['tinyizer','pipeline'].forEach(t => {
+        const isPip = t === 'pipeline';
+        const histData = data.history.map(e => {
+          const src = isPip ? (e.pipeline || null) : e.tinyizer;
+          if (!src) return null;
+          const total = (src['test_page.html']||0) + (src['test_page2.html']||0) + (src['test_page3.html']||0);
+          return total;
+        });
+        datasets.push({
+          label: t + ' total',
+          data: histData,
+          borderColor: isPip ? '#f0883e' : '#58a6ff',
+          backgroundColor: 'transparent',
+          tension: 0.2,
+          pointRadius: 3,
+          borderWidth: isPip ? 2 : 2.5,
+          borderDash: isPip ? [6,3] : []
+        });
+      });
 
       new Chart(document.getElementById('histChart'), {
         type: 'line',
