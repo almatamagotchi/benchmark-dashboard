@@ -61,10 +61,10 @@
 fetch('data.json')
   .then(r => r.json())
   .then(data => {
-    const tools = ['tinyizer','pipeline','html-minifier-terser','cminify'];
+    const tools = ['tinyizer','pipeline','html-minifier-terser','cminify','terser'];
     const pages = ['test_page.html','test_page2.html','test_page3.html'];
     const pageLabels = ['page1','page2','page3'];
-    const colors = {'tinyizer':'#58a6ff','pipeline':'#f0883e','html-minifier-terser':'#da3633','cminify':'#8b949e'};
+    const colors = {'tinyizer':'#58a6ff','pipeline':'#f0883e','html-minifier-terser':'#da3633','cminify':'#8b949e','terser':'#d2a8ff'};
     const labels = ['page1 (2KB)','page2 (0.5KB)','page3 (0.4KB)'];
 
     // regression alerts
@@ -102,6 +102,7 @@ fetch('data.json')
     const curEntry = hist && hist.length >= 1 ? hist[hist.length - 1] : null;
 
     tools.forEach(t => {
+      if (!data.tools[t]) return;
       const row = tb.insertRow();
       row.insertCell().textContent = t;
 
@@ -112,35 +113,27 @@ fetch('data.json')
         let txt = String(curVal);
 
         // trend delta from previous history entry
-        if (prevEntry && curEntry && t === 'tinyizer') {
-          const prev = prevEntry.tinyizer[p];
-          const cur = curEntry.tinyizer[p];
-          const diff = cur - prev;
-          if (diff !== 0) {
-            const arrow = diff < 0 ? '↓' : '↑';
-            txt += ` <span class="delta ${diff<0?'down':'up'}">${arrow}${Math.abs(diff)}</span>`;
-            deltas.push(diff);
-          } else {
-            txt += ' <span class="delta flat">·0</span>';
-            deltas.push(0);
-          }
-        } else if (prevEntry && curEntry && t === 'pipeline') {
-          const prev = prevEntry.pipeline ? prevEntry.pipeline[p] : null;
-          const cur = curEntry.pipeline ? curEntry.pipeline[p] : null;
-          if (prev != null && cur != null) {
-            const diff = cur - prev;
+        if (prevEntry && curEntry && (t === 'tinyizer' || t === 'pipeline' || t === 'cminify' || t === 'terser' || t === 'html-minifier-terser')) {
+          const prev = prevEntry[t] || prevEntry.tools?.[t] || {};
+          const cur = curEntry[t] || curEntry.tools?.[t] || {};
+          const diff = (cur[p] || 0) - (prev[p] || 0);
+          if (prev[p] != null && cur[p] != null) {
             if (diff !== 0) {
               const arrow = diff < 0 ? '↓' : '↑';
               txt += ` <span class="delta ${diff<0?'down':'up'}">${arrow}${Math.abs(diff)}</span>`;
+              deltas.push(diff);
             } else {
               txt += ' <span class="delta flat">·0</span>';
+              deltas.push(0);
             }
           }
         }
 
         cell.innerHTML = txt;
         if (t === 'tinyizer') cell.classList.add('win');
-        else if (t === 'pipeline') cell.classList.add(data.tools.tinyizer[p] < data.tools.pipeline[p] ? 'win' : 'lose');
+        else if (t === 'pipeline' && data.tools.tinyizer) cell.classList.add(data.tools.tinyizer[p] < data.tools.pipeline[p] ? 'win' : 'lose');
+        else if (t === 'terser' && data.tools.tinyizer) cell.classList.add(data.tools.tinyizer[p] < (data.tools.terser[p]||0) ? 'win' : 'lose');
+        else if (t === 'cminify' && data.tools.tinyizer) cell.classList.add(data.tools.tinyizer[p] < data.tools.cminify[p] ? 'win' : 'lose');
       });
 
       // history sparkline column
@@ -149,7 +142,8 @@ fetch('data.json')
         const svgW = 60, svgH = 24;
         const pad = 2;
         const points = hist.map(e => {
-          const pdata = t === 'tinyizer' ? e.tinyizer : (t === 'pipeline' ? (e.pipeline || {}) : (e.tools?.[t] || {}));
+          // Get per-tool data from history entry (top-level keys)
+          const pdata = t === 'tinyizer' ? e.tinyizer : (t === 'pipeline' ? (e.pipeline || null) : e[t]);
           if (!pdata) return null;
           const total = (pdata['test_page.html']||0) + (pdata['test_page2.html']||0) + (pdata['test_page3.html']||0);
           return isNaN(total) ? null : total;
@@ -181,7 +175,7 @@ fetch('data.json')
       type: 'bar',
       data: {
         labels,
-        datasets: tools.map(t => ({
+        datasets: tools.filter(t => data.tools[t]).map(t => ({
           label: t,
           data: pages.map(p => data.tools[t][p]),
           backgroundColor: colors[t],
@@ -206,7 +200,7 @@ fetch('data.json')
       type: 'bar',
       data: {
         labels,
-        datasets: tools.map(t => ({
+        datasets: tools.filter(t => data.tools[t]).map(t => ({
           label: t,
           data: pages.map(p => {
             const input = data.input_sizes[p];
@@ -265,25 +259,30 @@ fetch('data.json')
           borderDash: [4,4]
         });
       });
-      // add total-sum lines (match sparkline data in table)
-      ['tinyizer','pipeline'].forEach(t => {
+      // add total-sum lines for all tools with history data
+      ['tinyizer','pipeline','cminify','html-minifier-terser','terser'].forEach(t => {
         const isPip = t === 'pipeline';
+        const toolColors = {'tinyizer':'#58a6ff','pipeline':'#f0883e','cminify':'#8b949e','html-minifier-terser':'#da3633','terser':'#d2a8ff'};
         const histData = data.history.map(e => {
-          const src = isPip ? (e.pipeline || null) : e.tinyizer;
+          const src = isPip ? (e.pipeline || null) : e[t];
           if (!src) return null;
           const total = (src['test_page.html']||0) + (src['test_page2.html']||0) + (src['test_page3.html']||0);
           return total;
         });
-        datasets.push({
-          label: t + ' total',
-          data: histData,
-          borderColor: isPip ? '#f0883e' : '#58a6ff',
-          backgroundColor: 'transparent',
-          tension: 0.2,
-          pointRadius: 3,
-          borderWidth: isPip ? 2 : 2.5,
-          borderDash: isPip ? [6,3] : []
-        });
+        // Only add if we have data
+        if (histData.filter(v => v !== null).length > 0) {
+          const dashChoices = { 'tinyizer': [], 'pipeline': [6,3], 'cminify': [4,4], 'html-minifier-terser': [8,4], 'terser': [3,3] };
+          datasets.push({
+            label: t + ' total',
+            data: histData,
+            borderColor: toolColors[t],
+            backgroundColor: 'transparent',
+            tension: 0.2,
+            pointRadius: isPip || t === 'tinyizer' ? 3 : 2,
+            borderWidth: t === 'cminify' || t === 'html-minifier-terser' || t === 'terser' ? 1.5 : 2,
+            borderDash: dashChoices[t]
+          });
+        }
       });
 
       new Chart(document.getElementById('histChart'), {

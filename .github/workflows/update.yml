@@ -31,10 +31,11 @@ jobs:
           
           # Parse the README benchmark table into JSON
           python3 -c "
-          import re, json
+          import re, json, os, subprocess
+          from datetime import datetime, timezone
           with open('/tmp/tinyizer/README.md') as f:
               text = f.read()
-          
+
           # Extract the comparison table
           # | **tinyizer** | **777** | **272** | **191** |
           # | Pipeline¹ | 839 | 291 | 251 |
@@ -43,7 +44,7 @@ jobs:
           table_start = text.index('| **tinyizer** |')
           table_end = text.index('\n\n', table_start)
           table = text[table_start:table_end]
-          
+
           for line in table.strip().split('\n'):
               parts = [p.strip().strip('*') for p in line.split('|')[1:-1]]
               if len(parts) < 4:
@@ -63,22 +64,45 @@ jobs:
                       'test_page2.html': vals[1],
                       'test_page3.html': vals[2]
                   }
-          
-          # Add input sizes
+
+          # Preserve existing history (if any) and append new entry
+          sha = subprocess.check_output(['git','rev-parse','HEAD']).decode().strip()
+          ts = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+
+          history = []
+          try:
+              with open('data.json') as f:
+                  existing = json.load(f)
+              history = existing.get('history', [])
+          except (FileNotFoundError, json.JSONDecodeError):
+              pass
+
+          # Build new history entry with all available tools
+          entry = {'sha': sha, 'ts': ts, 'tinyizer': tools.get('tinyizer', {})}
+          if 'Pipeline' in tools:
+              entry['pipeline'] = tools['Pipeline']
+          for t in ['terser', 'cminify', 'html-minifier-terser']:
+              if t in tools:
+                  entry[t] = tools[t]
+          history.append(entry)
+          # Keep last 90 entries (~3 months at 1/day)
+          if len(history) > 90:
+              history = history[-90:]
+
           output = {
-              'last_updated': '$(date -u +%Y-%m-%dT%H:%M:%SZ)',
+              'last_updated': ts,
               'tools': tools,
               'input_sizes': {
                   'test_page.html': 2153,
                   'test_page2.html': 521,
                   'test_page3.html': 381
-              }
+              },
+              'history': history
           }
-          
+
           with open('data.json', 'w') as f:
               json.dump(output, f, indent=2)
-          print('Updated data.json')
-          print(json.dumps(output, indent=2))
+          print('Updated data.json with', len(history), 'history entries')
           "
 
       - name: commit updated data
