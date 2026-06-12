@@ -249,7 +249,7 @@ fetch('data.json')
       });
       pageNames.forEach((p,i) => {
         datasets.push({
-          label: 'pipeline ' + ['page1','page2','page3'][i],
+          label: 'pipeline ' + ['page','page','page'][i] + (i+1),
           data: data.history.map(e => e.pipeline ? e.pipeline[p] : null),
           borderColor: pipeColors[i],
           backgroundColor: 'transparent',
@@ -257,6 +257,29 @@ fetch('data.json')
           pointRadius: 1,
           borderWidth: 1,
           borderDash: [4,4]
+        });
+      });
+      // per-page lines for cminify
+      ['cminify','html-minifier-terser','terser'].forEach(t => {
+        const ppColors = {'cminify': ['#9aa9b9','#b0b8c0','#838d99'], 'html-minifier-terser': ['#e05a62','#e5777d','#d93d48'], 'terser': ['#d2a8ff','#c495e8','#b080d0']};
+        pageNames.forEach((p,i) => {
+          const histData = data.history.map(e => {
+            const src = e[t];
+            if (!src) return null;
+            return src[p];
+          });
+          if (histData.filter(v => v !== null).length > 0) {
+            datasets.push({
+              label: t + ' ' + ['page','page','page'][i] + (i+1),
+              data: histData,
+              borderColor: ppColors[t][i],
+              backgroundColor: 'transparent',
+              tension: 0.2,
+              pointRadius: 1,
+              borderWidth: 1,
+              borderDash: [2,4]
+            });
+          }
         });
       });
       // add total-sum lines for all tools with history data
