@@ -331,7 +331,67 @@ fetch('data.json')
       });
     }
 
-    // fix pipeline case mismatch (CI pushes "Pipeline", code expects "pipeline")
+      // ranking chart — relative position changes over time
+      if (data.history && data.history.length > 1) {
+        const rkWrap = document.createElement('div');
+        rkWrap.className = 'chart-wrap';
+        rkWrap.innerHTML = '<h2>rankings over time</h2><canvas id="rankChart"></canvas>';
+        document.querySelector('footer').before(rkWrap);
+
+        const rkLabels = data.history.map(e => e.sha.slice(0,7));
+        const rkTools = tools.filter(t => {
+          return data.history.some(e => e[t] || (t === 'pipeline' && e.pipeline));
+        });
+        // compute rank per history entry per tool (1 = smallest = best)
+        const rankMatrix = {};
+        rkTools.forEach(t => { rankMatrix[t] = []; });
+        data.history.forEach(e => {
+          const totals = {};
+          rkTools.forEach(t => {
+            const src = t === 'pipeline' ? (e.pipeline || null) : e[t];
+            if (!src) { totals[t] = Infinity; return; }
+            totals[t] = (src['test_page.html']||0) + (src['test_page2.html']||0) + (src['test_page3.html']||0);
+          });
+          const sorted = Object.entries(totals).sort((a,b) => a[1] - b[1]);
+          const ranks = {};
+          sorted.forEach(([tool], i) => { ranks[tool] = i + 1; });
+          rkTools.forEach(t => { rankMatrix[t].push(ranks[t] || null); });
+        });
+
+        const rkDatasets = rkTools.map(t => ({
+          label: t,
+          data: rankMatrix[t],
+          borderColor: colors[t],
+          backgroundColor: colors[t]+'33',
+          tension: 0.3,
+          pointRadius: 3,
+          borderWidth: 2,
+          fill: false
+        }));
+
+        new Chart(document.getElementById('rankChart'), {
+          type: 'line',
+          data: { labels: rkLabels, datasets: rkDatasets },
+          options: {
+            responsive: true,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+              legend: { labels: { color: '#c9d1d9' } },
+              tooltip: {
+                callbacks: {
+                  title: ctx => 'commit ' + data.history[ctx[0].dataIndex].sha.slice(0,7),
+                  afterTitle: ctx => data.history[ctx[0].dataIndex].ts.replace('T',' ').replace('Z',''),
+                  label: ctx => ctx.dataset.label + ': rank #' + ctx.raw
+                }
+              }
+            },
+            scales: {
+              x: { ticks: { color: '#8b949e', maxRotation: 45, font: { size: 9 } }, grid: { color: '#21262d' } },
+              y: { title: { text: 'rank (1=best)', display: true, color: '#8b949e' }, ticks: { color: '#8b949e', stepSize: 1, callback: v => '#'+v }, grid: { color: '#21262d' }, reverse: true, min: 1, max: rkTools.length }
+            }
+          }
+        });
+      }
     function pipelineKey(data) {
       if (data.tools.pipeline) return data.tools.pipeline;
       if (data.tools.Pipeline) return data.tools.Pipeline;
