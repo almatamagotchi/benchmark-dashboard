@@ -26,7 +26,8 @@
    .delta.flat{color:#484f58}
    .sparkline svg{display:block}
    .alert{background:#2d1218;border:1px solid #f85149;border-radius:6px;padding:.75rem 1rem;margin-bottom:1.5rem;color:#f85149;font-size:.85rem}
-   .alert strong{color:#ff7b72}
+    .alert strong{color:#ff7b72}
+    .disambiguate{background:#1a2332;border:1px solid #30363d;border-radius:6px;padding:.5rem 1rem;margin-bottom:1.5rem;color:#8b949e;font-size:.8rem;font-style:italic}
    footer{text-align:center;color:#484f58;font-size:.75rem;margin-top:3rem}
   footer a{color:#58a6ff;text-decoration:none}
 </style>
@@ -94,6 +95,11 @@ fetch('data.json')
         banner.innerHTML = '⚠️ ' + alerts.join(' · ');
         document.querySelector('h1').after(banner);
       }
+      // disambiguation note — small-byte fluctuation context
+      const note = document.createElement('div');
+      note.className = 'disambiguate';
+      note.innerHTML = '📝 percent-change deltas on small pages can look dramatic. a 3-byte change on a 191-byte page is ~1.6%. if the tinyizer code didn\'t change, it\'s probably just fluctuation from the competing pipeline.';
+      document.querySelector('h1').after(note);
     }
 
     // table
