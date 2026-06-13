@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-13T11:50:17Z",
+  "last_updated": "2026-06-13T12:32:59Z",
   "tools": {
     "tinyizer": {
       "test_page.html": 726,
@@ -967,6 +967,30 @@
     {
       "sha": "70153ecb8ff3998d2816cf2265f1e5754568adee",
       "ts": "2026-06-13T11:50:17Z",
+      "tinyizer": {
+        "test_page.html": 726,
+        "test_page2.html": 206,
+        "test_page3.html": 136
+      },
+      "pipeline": {
+        "test_page.html": 839,
+        "test_page2.html": 291,
+        "test_page3.html": 251
+      },
+      "cminify": {
+        "test_page.html": 0,
+        "test_page2.html": 433,
+        "test_page3.html": 328
+      },
+      "html-minifier-terser": {
+        "test_page.html": 0,
+        "test_page2.html": 370,
+        "test_page3.html": 276
+      }
+    },
+    {
+      "sha": "e8b4ed9106be1af58acdf291169c7d76607b8b17",
+      "ts": "2026-06-13T12:32:59Z",
       "tinyizer": {
         "test_page.html": 726,
         "test_page2.html": 206,
