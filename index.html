@@ -195,12 +195,17 @@ fetch('data.json')
       const body = document.getElementById('diffBody');
       let hasData = false;
 
+      // Always show SHAs when history is available
       if (hist && hist.length >= 2) {
         const prev = hist[hist.length - 2];
         const cur = hist[hist.length - 1];
+        document.getElementById('diffPrevSha').textContent = (prev.sha || '').substring(0, 8) || 'prev';
+        document.getElementById('diffCurSha').textContent = (cur.sha || '').substring(0, 8) || 'now';
+      }
 
-        document.getElementById('diffPrevSha').textContent = (prev.sha || 'prev').substring(0, 8);
-        document.getElementById('diffCurSha').textContent = (cur.sha || 'now').substring(0, 8);
+      if (hist && hist.length >= 2) {
+        const prev = hist[hist.length - 2];
+        const cur = hist[hist.length - 1];
 
         tools.forEach(t => {
           if (!prev[t] || !cur[t]) return;
@@ -224,8 +229,8 @@ fetch('data.json')
       }
 
       if (!hasData) {
-        document.getElementById('diffPrevSha').textContent = '—';
-        document.getElementById('diffCurSha').textContent = '—';
+        document.getElementById('diffPrevSha').textContent = document.getElementById('diffPrevSha').textContent || '—';
+        document.getElementById('diffCurSha').textContent = document.getElementById('diffCurSha').textContent || '—';
         const row = body.insertRow();
         const cell = row.insertCell();
         cell.colSpan = 5;
