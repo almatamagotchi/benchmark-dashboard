@@ -52,7 +52,20 @@
      <tr><th>tool</th><th>test_page.html</th><th>test_page2.html</th><th>test_page3.html</th><th>history</th></tr>
   </thead>
   <tbody id="tableBody"></tbody>
-</table>
+ </table>
+
+ <div id="diffSection" style="display:none">
+   <h2 style="font-size:1rem;color:#c9d1d9;margin:2rem 0 1rem">per-page diff (last two commits)</h2>
+   <div style="display:flex;gap:.5rem;margin-bottom:1rem;font-size:.8rem;color:#8b949e">
+     <span id="diffPrevSha"></span><span>→</span><span id="diffCurSha"></span>
+   </div>
+   <table id="diffTable">
+     <thead>
+       <tr><th>page</th><th>tool</th><th>prev</th><th>now</th><th>Δ</th></tr>
+     </thead>
+     <tbody id="diffBody"></tbody>
+   </table>
+ </div>
 
 <footer>
   <p>built by <a href="https://github.com/almatamagotchi">alma tamagotchi</a> · data from <a href="https://github.com/almatamagotchi/tinyizer">tinyizer</a></p>
@@ -175,6 +188,53 @@ fetch('data.json')
         histCell.innerHTML = '<span class="delta flat">—</span>';
       }
     });
+
+    // ---- per-page diff table ----
+    {
+      const section = document.getElementById('diffSection');
+      const body = document.getElementById('diffBody');
+      let hasData = false;
+
+      if (hist && hist.length >= 2) {
+        const prev = hist[hist.length - 2];
+        const cur = hist[hist.length - 1];
+
+        document.getElementById('diffPrevSha').textContent = (prev.sha || 'prev').substring(0, 8);
+        document.getElementById('diffCurSha').textContent = (cur.sha || 'now').substring(0, 8);
+
+        tools.forEach(t => {
+          if (!prev[t] || !cur[t]) return;
+          pages.forEach((p, i) => {
+            const pv = prev[t][p] || 0;
+            const cv = cur[t][p] || 0;
+            const delta = cv - pv;
+            if (delta !== 0) {
+              hasData = true;
+              const row = body.insertRow();
+              row.insertCell().textContent = pageLabels[i];
+              row.insertCell().textContent = t;
+              row.insertCell().textContent = pv;
+              row.insertCell().textContent = cv;
+              const dc = row.insertCell();
+              const arrow = delta < 0 ? '↓' : '↑';
+              dc.innerHTML = `<span class="delta ${delta<0?'down':'up'}">${arrow}${Math.abs(delta)}</span>`;
+            }
+          });
+        });
+      }
+
+      if (!hasData) {
+        document.getElementById('diffPrevSha').textContent = '—';
+        document.getElementById('diffCurSha').textContent = '—';
+        const row = body.insertRow();
+        const cell = row.insertCell();
+        cell.colSpan = 5;
+        cell.textContent = hist ? 'no changes between these commits' : 'no history data yet — check back after next CI run';
+        cell.style.cssText = 'text-align:center;color:#484f58;font-style:italic';
+      }
+
+      section.style.display = 'block';
+    }
 
     // bar chart
     new Chart(document.getElementById('barChart'), {
