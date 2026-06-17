@@ -12,14 +12,19 @@
       "test_page3.html": 253
     },
     "html-minifier-terser": {
-      "test_page.html": 0,
+      "test_page.html": 1178,
       "test_page2.html": 370,
       "test_page3.html": 276
     },
     "cminify": {
-      "test_page.html": 0,
+      "test_page.html": 1263,
       "test_page2.html": 433,
       "test_page3.html": 328
+    },
+    "terser": {
+      "test_page.html": 230,
+      "test_page2.html": 108,
+      "test_page3.html": 71
     }
   },
   "input_sizes": {
@@ -43,13 +48,13 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 434,
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 369,
+        "test_page3.html": 277
       }
     },
     {
@@ -68,12 +73,12 @@
       "cminify": {
         "test_page.html": 0,
         "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 369,
+        "test_page3.html": 275
       }
     },
     {
@@ -91,13 +96,13 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 434,
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 371,
+        "test_page3.html": 277
       }
     },
     {
@@ -115,12 +120,12 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 434,
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
+        "test_page2.html": 371,
         "test_page3.html": 276
       }
     },
@@ -139,13 +144,13 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 432,
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 369,
+        "test_page3.html": 275
       }
     },
     {
@@ -163,13 +168,13 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 432,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 371,
+        "test_page3.html": 275
       }
     },
     {
@@ -187,13 +192,13 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 434,
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 371,
+        "test_page3.html": 277
       }
     },
     {
@@ -211,13 +216,13 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 434,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
         "test_page.html": 0,
         "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page3.html": 275
       }
     },
     {
@@ -236,12 +241,12 @@
       "cminify": {
         "test_page.html": 0,
         "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
         "test_page.html": 0,
         "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page3.html": 275
       }
     },
     {
@@ -259,8 +264,8 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 432,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
         "test_page.html": 0,
@@ -284,11 +289,11 @@
       "cminify": {
         "test_page.html": 0,
         "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
+        "test_page2.html": 369,
         "test_page3.html": 276
       }
     },
@@ -307,13 +312,13 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 432,
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
         "test_page.html": 0,
         "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page3.html": 275
       }
     },
     {
@@ -336,7 +341,7 @@
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
+        "test_page2.html": 371,
         "test_page3.html": 276
       }
     },
@@ -355,13 +360,13 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 432,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
         "test_page.html": 0,
         "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page3.html": 277
       }
     },
     {
@@ -379,13 +384,13 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
+        "test_page2.html": 432,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 369,
+        "test_page3.html": 277
       }
     },
     {
@@ -404,11 +409,11 @@
       "cminify": {
         "test_page.html": 0,
         "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
+        "test_page2.html": 371,
         "test_page3.html": 276
       }
     },
@@ -427,13 +432,13 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 434,
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 371,
+        "test_page3.html": 275
       }
     },
     {
@@ -451,12 +456,12 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 432,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
+        "test_page2.html": 369,
         "test_page3.html": 276
       }
     },
@@ -475,12 +480,12 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 432,
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
+        "test_page2.html": 369,
         "test_page3.html": 276
       }
     },
@@ -504,7 +509,7 @@
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
+        "test_page2.html": 371,
         "test_page3.html": 276
       }
     },
@@ -523,13 +528,13 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
+        "test_page2.html": 432,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
         "test_page.html": 0,
         "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page3.html": 275
       }
     },
     {
@@ -547,13 +552,13 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
+        "test_page2.html": 434,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 371,
+        "test_page3.html": 277
       }
     },
     {
@@ -571,13 +576,13 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 434,
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 371,
+        "test_page3.html": 277
       }
     },
     {
@@ -595,13 +600,13 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 432,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 371,
+        "test_page3.html": 275
       }
     },
     {
@@ -619,7 +624,7 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
+        "test_page2.html": 432,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
@@ -643,13 +648,13 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 434,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 371,
+        "test_page3.html": 275
       }
     },
     {
@@ -667,13 +672,13 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
+        "test_page2.html": 434,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 369,
+        "test_page3.html": 275
       }
     },
     {
@@ -691,13 +696,18 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
+        "test_page2.html": 432,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
         "test_page.html": 0,
         "test_page2.html": 370,
         "test_page3.html": 276
+      },
+      "terser": {
+        "test_page.html": 227,
+        "test_page2.html": 107,
+        "test_page3.html": 72
       }
     },
     {
@@ -715,13 +725,18 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
+        "test_page2.html": 434,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 369,
+        "test_page3.html": 277
+      },
+      "terser": {
+        "test_page.html": 233,
+        "test_page2.html": 108,
+        "test_page3.html": 72
       }
     },
     {
@@ -740,12 +755,17 @@
       "cminify": {
         "test_page.html": 0,
         "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
         "test_page.html": 0,
         "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page3.html": 275
+      },
+      "terser": {
+        "test_page.html": 229,
+        "test_page2.html": 109,
+        "test_page3.html": 72
       }
     },
     {
@@ -763,13 +783,18 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
+        "test_page2.html": 434,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 371,
+        "test_page3.html": 277
+      },
+      "terser": {
+        "test_page.html": 232,
+        "test_page2.html": 109,
+        "test_page3.html": 71
       }
     },
     {
@@ -788,12 +813,17 @@
       "cminify": {
         "test_page.html": 0,
         "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 369,
+        "test_page3.html": 277
+      },
+      "terser": {
+        "test_page.html": 230,
+        "test_page2.html": 107,
+        "test_page3.html": 70
       }
     },
     {
@@ -811,13 +841,18 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 432,
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
         "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page2.html": 371,
+        "test_page3.html": 275
+      },
+      "terser": {
+        "test_page.html": 233,
+        "test_page2.html": 109,
+        "test_page3.html": 71
       }
     },
     {
@@ -835,13 +870,18 @@
       },
       "cminify": {
         "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page2.html": 434,
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
         "test_page.html": 0,
         "test_page2.html": 370,
         "test_page3.html": 276
+      },
+      "terser": {
+        "test_page.html": 231,
+        "test_page2.html": 108,
+        "test_page3.html": 72
       }
     },
     {
@@ -858,14 +898,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page.html": 1263,
+        "test_page2.html": 434,
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1176,
+        "test_page2.html": 371,
+        "test_page3.html": 277
+      },
+      "terser": {
+        "test_page.html": 233,
+        "test_page2.html": 108,
+        "test_page3.html": 72
       }
     },
     {
@@ -882,14 +927,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
+        "test_page.html": 1263,
+        "test_page2.html": 432,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
+        "test_page.html": 1179,
+        "test_page2.html": 369,
         "test_page3.html": 276
+      },
+      "terser": {
+        "test_page.html": 227,
+        "test_page2.html": 109,
+        "test_page3.html": 72
       }
     },
     {
@@ -906,14 +956,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page.html": 1263,
+        "test_page2.html": 434,
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1180,
+        "test_page2.html": 369,
+        "test_page3.html": 277
+      },
+      "terser": {
+        "test_page.html": 229,
+        "test_page2.html": 109,
+        "test_page3.html": 72
       }
     },
     {
@@ -930,14 +985,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page.html": 1265,
+        "test_page2.html": 432,
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1178,
+        "test_page2.html": 369,
+        "test_page3.html": 277
+      },
+      "terser": {
+        "test_page.html": 233,
+        "test_page2.html": 109,
+        "test_page3.html": 70
       }
     },
     {
@@ -954,14 +1014,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
+        "test_page.html": 1265,
         "test_page2.html": 433,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
+        "test_page.html": 1176,
+        "test_page2.html": 369,
         "test_page3.html": 276
+      },
+      "terser": {
+        "test_page.html": 233,
+        "test_page2.html": 108,
+        "test_page3.html": 70
       }
     },
     {
@@ -978,14 +1043,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page.html": 1261,
+        "test_page2.html": 432,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1176,
+        "test_page2.html": 369,
+        "test_page3.html": 277
+      },
+      "terser": {
+        "test_page.html": 231,
+        "test_page2.html": 107,
+        "test_page3.html": 72
       }
     },
     {
@@ -1002,14 +1072,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page.html": 1262,
+        "test_page2.html": 432,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1179,
+        "test_page2.html": 371,
+        "test_page3.html": 275
+      },
+      "terser": {
+        "test_page.html": 230,
+        "test_page2.html": 109,
+        "test_page3.html": 72
       }
     },
     {
@@ -1026,14 +1101,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page.html": 1264,
+        "test_page2.html": 432,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
+        "test_page.html": 1177,
+        "test_page2.html": 371,
         "test_page3.html": 276
+      },
+      "terser": {
+        "test_page.html": 231,
+        "test_page2.html": 109,
+        "test_page3.html": 72
       }
     },
     {
@@ -1050,14 +1130,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
+        "test_page.html": 1263,
         "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1179,
+        "test_page2.html": 369,
+        "test_page3.html": 275
+      },
+      "terser": {
+        "test_page.html": 229,
+        "test_page2.html": 107,
+        "test_page3.html": 71
       }
     },
     {
@@ -1074,14 +1159,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page.html": 1262,
+        "test_page2.html": 434,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1177,
+        "test_page2.html": 371,
+        "test_page3.html": 275
+      },
+      "terser": {
+        "test_page.html": 228,
+        "test_page2.html": 107,
+        "test_page3.html": 72
       }
     },
     {
@@ -1098,14 +1188,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page.html": 1264,
+        "test_page2.html": 432,
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
+        "test_page.html": 1177,
+        "test_page2.html": 369,
         "test_page3.html": 276
+      },
+      "terser": {
+        "test_page.html": 228,
+        "test_page2.html": 109,
+        "test_page3.html": 70
       }
     },
     {
@@ -1122,14 +1217,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
+        "test_page.html": 1263,
+        "test_page2.html": 434,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1177,
+        "test_page2.html": 371,
+        "test_page3.html": 275
+      },
+      "terser": {
+        "test_page.html": 232,
+        "test_page2.html": 109,
+        "test_page3.html": 71
       }
     },
     {
@@ -1146,14 +1246,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
+        "test_page.html": 1262,
         "test_page2.html": 433,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1177,
+        "test_page2.html": 369,
+        "test_page3.html": 275
+      },
+      "terser": {
+        "test_page.html": 231,
+        "test_page2.html": 108,
+        "test_page3.html": 71
       }
     },
     {
@@ -1170,14 +1275,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
+        "test_page.html": 1263,
         "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1177,
+        "test_page2.html": 371,
+        "test_page3.html": 277
+      },
+      "terser": {
+        "test_page.html": 231,
+        "test_page2.html": 107,
+        "test_page3.html": 70
       }
     },
     {
@@ -1194,14 +1304,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
+        "test_page.html": 1263,
+        "test_page2.html": 434,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1177,
+        "test_page2.html": 369,
+        "test_page3.html": 275
+      },
+      "terser": {
+        "test_page.html": 229,
+        "test_page2.html": 109,
+        "test_page3.html": 71
       }
     },
     {
@@ -1218,14 +1333,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
+        "test_page.html": 1262,
         "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
+        "test_page.html": 1178,
         "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page3.html": 275
+      },
+      "terser": {
+        "test_page.html": 229,
+        "test_page2.html": 108,
+        "test_page3.html": 72
       }
     },
     {
@@ -1242,14 +1362,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page.html": 1262,
+        "test_page2.html": 432,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1179,
+        "test_page2.html": 369,
+        "test_page3.html": 275
+      },
+      "terser": {
+        "test_page.html": 229,
+        "test_page2.html": 107,
+        "test_page3.html": 71
       }
     },
     {
@@ -1266,14 +1391,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
+        "test_page.html": 1263,
         "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1178,
+        "test_page2.html": 369,
+        "test_page3.html": 275
+      },
+      "terser": {
+        "test_page.html": 230,
+        "test_page2.html": 107,
+        "test_page3.html": 71
       }
     },
     {
@@ -1290,14 +1420,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
+        "test_page.html": 1263,
         "test_page2.html": 433,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1178,
+        "test_page2.html": 371,
+        "test_page3.html": 277
+      },
+      "terser": {
+        "test_page.html": 231,
+        "test_page2.html": 109,
+        "test_page3.html": 72
       }
     },
     {
@@ -1314,14 +1449,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page.html": 1263,
+        "test_page2.html": 432,
+        "test_page3.html": 327
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1178,
+        "test_page2.html": 369,
+        "test_page3.html": 275
+      },
+      "terser": {
+        "test_page.html": 231,
+        "test_page2.html": 109,
+        "test_page3.html": 72
       }
     },
     {
@@ -1338,14 +1478,19 @@
         "test_page3.html": 251
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
+        "test_page.html": 1263,
+        "test_page2.html": 434,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1178,
+        "test_page2.html": 369,
+        "test_page3.html": 277
+      },
+      "terser": {
+        "test_page.html": 230,
+        "test_page2.html": 109,
+        "test_page3.html": 72
       }
     },
     {
@@ -1362,14 +1507,19 @@
         "test_page3.html": 253
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page.html": 1263,
+        "test_page2.html": 432,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1178,
+        "test_page2.html": 369,
+        "test_page3.html": 275
+      },
+      "terser": {
+        "test_page.html": 230,
+        "test_page2.html": 109,
+        "test_page3.html": 70
       }
     },
     {
@@ -1386,14 +1536,19 @@
         "test_page3.html": 253
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page.html": 1263,
+        "test_page2.html": 432,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page.html": 1178,
+        "test_page2.html": 371,
+        "test_page3.html": 277
+      },
+      "terser": {
+        "test_page.html": 230,
+        "test_page2.html": 109,
+        "test_page3.html": 70
       }
     },
     {
@@ -1410,14 +1565,19 @@
         "test_page3.html": 253
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page.html": 1263,
+        "test_page2.html": 434,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
+        "test_page.html": 1178,
         "test_page2.html": 370,
-        "test_page3.html": 276
+        "test_page3.html": 275
+      },
+      "terser": {
+        "test_page.html": 230,
+        "test_page2.html": 107,
+        "test_page3.html": 71
       }
     },
     {
@@ -1434,14 +1594,19 @@
         "test_page3.html": 253
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page.html": 1263,
+        "test_page2.html": 432,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
+        "test_page.html": 1178,
         "test_page2.html": 370,
         "test_page3.html": 276
+      },
+      "terser": {
+        "test_page.html": 230,
+        "test_page2.html": 107,
+        "test_page3.html": 71
       }
     },
     {
@@ -1458,14 +1623,19 @@
         "test_page3.html": 253
       },
       "cminify": {
-        "test_page.html": 0,
-        "test_page2.html": 433,
-        "test_page3.html": 328
+        "test_page.html": 1263,
+        "test_page2.html": 432,
+        "test_page3.html": 329
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
-        "test_page2.html": 370,
+        "test_page.html": 1178,
+        "test_page2.html": 371,
         "test_page3.html": 276
+      },
+      "terser": {
+        "test_page.html": 230,
+        "test_page2.html": 108,
+        "test_page3.html": 70
       }
     },
     {
@@ -1482,14 +1652,19 @@
         "test_page3.html": 253
       },
       "cminify": {
-        "test_page.html": 0,
+        "test_page.html": 1262,
         "test_page2.html": 433,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
+        "test_page.html": 1179,
         "test_page2.html": 370,
         "test_page3.html": 276
+      },
+      "terser": {
+        "test_page.html": 231,
+        "test_page2.html": 108,
+        "test_page3.html": 71
       }
     },
     {
@@ -1506,14 +1681,19 @@
         "test_page3.html": 253
       },
       "cminify": {
-        "test_page.html": 0,
+        "test_page.html": 1263,
         "test_page2.html": 433,
         "test_page3.html": 328
       },
       "html-minifier-terser": {
-        "test_page.html": 0,
+        "test_page.html": 1178,
         "test_page2.html": 370,
         "test_page3.html": 276
+      },
+      "terser": {
+        "test_page.html": 230,
+        "test_page2.html": 108,
+        "test_page3.html": 71
       }
     }
   ]
