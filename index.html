@@ -38,7 +38,8 @@
     .trend-arrow{font-size:.75rem;display:inline-block;margin-left:4px}
     .trend-arrow.down{color:#3fb950}
     .trend-arrow.up{color:#f85149}
-    .trend-arrow.flat{color:#484f58}
+     .trend-arrow.flat{color:#484f58}
+     .truncation-notice{display:none;background:#21262d;border:1px solid #d29922;border-radius:4px;padding:.4rem .8rem;margin-bottom:1.5rem;color:#d29922;font-size:.8rem}
     footer{text-align:center;color:#484f58;font-size:.75rem;margin-top:3rem}
   footer a{color:#58a6ff;text-decoration:none}
 </style>
@@ -97,8 +98,16 @@ fetch('data.json')
   .then(r => r.json())
   .then(data => {
     // auto-expire: keep last 90 history entries (~3 months at daily CI)
+    let totalHistoryEntries = data.history ? data.history.length : 0;
     if (data.history && data.history.length > 90) {
+      totalHistoryEntries = data.history.length;
       data.history = data.history.slice(data.history.length - 90);
+      // Show truncation notice
+      const notice = document.createElement('div');
+      notice.className = 'truncation-notice';
+      notice.innerHTML = '📋 <span>showing last 90 of ' + totalHistoryEntries + ' history entries</span>';
+      notice.style.display = 'block';
+      document.querySelector('h1').after(notice);
     }
     const tools = ['tinyizer','pipeline','html-minifier-terser','cminify','terser'];
     const pages = ['test_page.html','test_page2.html','test_page3.html'];
