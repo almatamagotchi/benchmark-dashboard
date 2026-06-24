@@ -289,7 +289,19 @@ fetch('data.json')
       options: {
         responsive: true,
         plugins: {
-          legend: {labels:{color:'#c9d1d9'}}
+          legend: {labels:{color:'#c9d1d9'}},
+          tooltip: {
+            backgroundColor: '#161b22',
+            titleColor: '#58a6ff',
+            bodyColor: '#c9d1d9',
+            borderColor: '#30363d',
+            borderWidth: 1,
+            padding: 10,
+            displayColors: false,
+            callbacks: {
+              label: ctx => ctx.dataset.label + ': ' + ctx.raw + ' bytes'
+            }
+          }
         },
         scales: {
           x: {ticks:{color:'#8b949e'},grid:{color:'#21262d'}},
@@ -333,7 +345,19 @@ fetch('data.json')
       options: {
         responsive: true,
         plugins: {
-          legend: {labels:{color:'#c9d1d9'}}
+          legend: {labels:{color:'#c9d1d9'}},
+          tooltip: {
+            backgroundColor: '#161b22',
+            titleColor: '#58a6ff',
+            bodyColor: '#c9d1d9',
+            borderColor: '#30363d',
+            borderWidth: 1,
+            padding: 10,
+            displayColors: false,
+            callbacks: {
+              label: ctx => ctx.dataset.label + ': ' + ctx.raw + '% reduction'
+            }
+          }
         },
         scales: {
           x: {ticks:{color:'#8b949e'},grid:{color:'#21262d'}},
@@ -435,25 +459,31 @@ fetch('data.json')
           interaction: { mode: 'index', intersect: false },
           plugins: {
             legend: { labels: { color: '#c9d1d9' } },
-            tooltip: {
+             tooltip: {
               backgroundColor: '#161b22',
               titleColor: '#58a6ff',
               bodyColor: '#c9d1d9',
               borderColor: '#30363d',
               borderWidth: 1,
               padding: 10,
+              displayColors: false,
               callbacks: {
                 title: ctx => 'commit ' + data.history[ctx[0].dataIndex].sha.slice(0,7),
                 afterTitle: ctx => {
-                  const ts = data.history[ctx[0].dataIndex].ts.replace('T',' ').replace('Z','');
-                  return '  ' + ts;
+                  const d = new Date(data.history[ctx[0].dataIndex].ts);
+                  return d.toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
                 },
                 label: ctx => {
                   const d = data.history[ctx.dataIndex];
                   const label = ctx.dataset.label;
                   const toolData = d[label] || d.pipeline || {};
-                  const total = (toolData['test_page.html']||0)+(toolData['test_page2.html']||0)+(toolData['test_page3.html']||0);
-                  return label + ':  ' + total + ' bytes';
+                  const p1 = toolData['test_page.html']||0;
+                  const p2 = toolData['test_page2.html']||0;
+                  const p3 = toolData['test_page3.html']||0;
+                  return [
+                    label + ': ' + (p1+p2+p3) + ' bytes total',
+                    '  page1 ' + p1 + '  page2 ' + p2 + '  page3 ' + p3
+                  ];
                 }
               }
             }
@@ -527,9 +557,19 @@ fetch('data.json')
             plugins: {
               legend: { labels: { color: '#c9d1d9' } },
               tooltip: {
+                backgroundColor: '#161b22',
+                titleColor: '#58a6ff',
+                bodyColor: '#c9d1d9',
+                borderColor: '#30363d',
+                borderWidth: 1,
+                padding: 10,
+                displayColors: false,
                 callbacks: {
                   title: ctx => 'commit ' + data.history[ctx[0].dataIndex].sha.slice(0,7),
-                  afterTitle: ctx => data.history[ctx[0].dataIndex].ts.replace('T',' ').replace('Z',''),
+                  afterTitle: ctx => {
+                    const d = new Date(data.history[ctx[0].dataIndex].ts);
+                    return d.toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+                  },
                   label: ctx => ctx.dataset.label + ': rank #' + ctx.raw
                 }
               }
