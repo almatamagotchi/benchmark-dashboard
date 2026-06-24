@@ -63,9 +63,19 @@
      <tr><th>tool</th><th>test_page.html</th><th>test_page2.html</th><th>test_page3.html</th><th>history</th></tr>
   </thead>
   <tbody id="tableBody"></tbody>
- </table>
+  </table>
 
-     <div id="diffSection" style="display:none">
+  <div id="savingsSection">
+    <h2 style="font-size:1rem;color:#c9d1d9;margin:2rem 0 1rem">tinyizer savings per page <button id="savingsToggle" class="diff-toggle" onclick="document.getElementById('savingsTable').classList.toggle('hidden');var b=document.getElementById('savingsToggle');b.textContent=b.textContent==='show'?'hide':'show'">hide</button></h2>
+    <table id="savingsTable" style="max-width:520px">
+      <thead>
+        <tr><th>page</th><th>original</th><th>tinyizer</th><th>saved</th><th>reduction</th></tr>
+      </thead>
+      <tbody id="savingsBody"></tbody>
+    </table>
+  </div>
+
+  <div id="diffSection" style="display:none">
       <h2 style="font-size:1rem;color:#c9d1d9;margin:2rem 0 1rem">per-page diff (last two commits) <button id="diffToggle" class="diff-toggle" onclick="document.getElementById('diffTable').parentElement.classList.toggle('hidden');var b=document.getElementById('diffToggle');b.textContent=b.textContent==='show'?'hide':'show'">hide</button></h2>
    <div style="display:flex;gap:.5rem;margin-bottom:1rem;font-size:.8rem;color:#8b949e">
      <span id="diffPrevSha"></span><span>→</span><span id="diffCurSha"></span>
@@ -219,6 +229,47 @@ fetch('data.json')
         histCell.innerHTML = '<span class="delta flat">—</span>';
       }
     });
+
+    // ---- tinyizer savings per page table ----
+    {
+      const body = document.getElementById('savingsBody');
+      // Original file sizes (hardcoded — test pages don't change often)
+      const originals = {
+        'test_page.html': 2153,
+        'test_page2.html': 521,
+        'test_page3.html': 381
+      };
+      let totalOrig = 0, totalTiny = 0;
+      pages.forEach(p => {
+        const orig = originals[p] || 0;
+        const tiny = data.tools.tinyizer ? (data.tools.tinyizer[p] || 0) : 0;
+        const saved = orig - tiny;
+        const pct = orig > 0 ? (saved / orig * 100).toFixed(1) : '0.0';
+        totalOrig += orig; totalTiny += tiny;
+
+        const row = body.insertRow();
+        row.insertCell().textContent = p;
+        row.insertCell().textContent = orig.toLocaleString();
+        const tc = row.insertCell();
+        tc.textContent = tiny.toLocaleString();
+        tc.style.color = '#58a6ff';
+        row.insertCell().textContent = (saved).toLocaleString();
+        row.insertCell().innerHTML = `<span style="color:#6a9955">${pct}%</span>`;
+      });
+      // Total row
+      const totalRow = body.insertRow();
+      totalRow.style.fontWeight = '700';
+      totalRow.style.borderTop = '1px solid #30363d';
+      totalRow.insertCell().textContent = 'total';
+      totalRow.insertCell().textContent = totalOrig.toLocaleString();
+      const ttc = totalRow.insertCell();
+      ttc.textContent = totalTiny.toLocaleString();
+      ttc.style.color = '#58a6ff';
+      const saved = totalOrig - totalTiny;
+      const pct = totalOrig > 0 ? (saved / totalOrig * 100).toFixed(1) : '0.0';
+      totalRow.insertCell().textContent = saved.toLocaleString();
+      totalRow.insertCell().innerHTML = `<span style="color:#6a9955;font-weight:700">${pct}%</span>`;
+    }
 
     // ---- per-page diff table ----
     {
